@@ -7,6 +7,7 @@ import org.apache.hadoop.fs.*;
 import org.apache.hadoop.mapreduce.lib.input.*;
 import org.apache.hadoop.mapreduce.lib.output.*;
 import org.apache.hadoop.util.*;
+
 public class Intellipaat_emp extends Configured implements Tool
 {
  //Map class

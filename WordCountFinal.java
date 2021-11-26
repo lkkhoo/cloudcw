@@ -52,13 +52,34 @@ public class WordCountFinal extends Configured implements Tool{
         @Override
         public int getPartition(Text key, IntWritable value, int numReduceTasks){
             String myKey = key.toString();
-            if(myKey.startsWith("a")){
+            if(myKey.startsWith("a") || myKey.startsWith("b") || myKey.startsWith("c")){
                 return 0;
             }
-            if(myKey.startsWith("b")){
+            if(myKey.startsWith("d") || myKey.startsWith("e") || myKey.startsWith("f")){
                 return 1;
-            }else{
+            }
+            if(myKey.startsWith("g") || myKey.startsWith("h") || myKey.startsWith("i")){
                 return 2;
+            }
+            if(myKey.startsWith("j") || myKey.startsWith("k") || myKey.startsWith("l")){
+                return 3;
+            }
+            if(myKey.startsWith("m") || myKey.startsWith("n") || myKey.startsWith("o")){
+                return 4;
+            }
+            if(myKey.startsWith("p") || myKey.startsWith("q") || myKey.startsWith("r")){
+                return 5;
+            }
+            if(myKey.startsWith("s") || myKey.startsWith("t") || myKey.startsWith("u")){
+                return 6;
+            }
+            if(myKey.startsWith("v") || myKey.startsWith("w") || myKey.startsWith("x")){
+                return 7;
+            }
+            if(myKey.startsWith("y") || myKey.startsWith("z")){
+                return 8;
+            }else{
+                return 9;
             }
         }
     }
@@ -78,7 +99,7 @@ public class WordCountFinal extends Configured implements Tool{
         job.setPartitionerClass(WCPart.class);
         job.setCombinerClass(WCRed.class);
         job.setReducerClass(WCRed.class);
-        job.setNumReduceTasks(3);
+        job.setNumReduceTasks(10);
 
         job.setInputFormatClass(CombineTextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
