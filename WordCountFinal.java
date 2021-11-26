@@ -86,7 +86,7 @@ public class WordCountFinal extends Configured implements Tool{
     @Override
     public int run(String[] arg) throws Exception{
         Configuration conf = getConf();
-        Job job = new Job(conf, "word count");
+        Job job = Job.getInstance(conf, "word count");
 
         job.setJarByClass(WordCountFinal.class);
 
