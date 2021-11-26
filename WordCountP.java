@@ -68,36 +68,6 @@ public class WordCountP extends Configured implements Tool{
         }
     }
    
-   @Override
-   public int run(String[] arg) throws Exception{
-      Configuration conf = getConf();
-		
-      Job job = new Job(conf, "word count");
-      job.setJarByClass(WordCountP.class);
-		
-      FileInputFormat.setInputPaths(job, new Path(arg[0]));
-      FileOutputFormat.setOutputPath(job,new Path(arg[1]));
-		
-      job.setMapperClass(WCMap.class);
-		
-      job.setMapOutputKeyClass(Text.class);
-      job.setMapOutputValueClass(IntWritable.class);
-      
-      //set partitioner statement
-		
-      job.setPartitionerClass(WCPart.class);
-      job.setReducerClass(WCReduce.class);
-      job.setNumReduceTasks(3);
-      job.setInputFormatClass(TextInputFormat.class);
-		
-      job.setOutputFormatClass(TextOutputFormat.class);
-      job.setOutputKeyClass(Text.class);
-      job.setOutputValueClass(IntWritable.class);
-		
-      System.exit(job.waitForCompletion(true)? 0 : 1);
-      return 0;
-   }
-   
     public static void main(String ar[]) throws Exception{
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "word count");
