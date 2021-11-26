@@ -24,7 +24,7 @@ public class WordCountFinal extends Configured implements Tool{
             StringTokenizer itr = new StringTokenizer(line.replaceAll("\\p{Punct}", ""));
 
             while (itr.hasMoreTokens()) {
-                word.set(itr.nextToken());
+                word.set(itr.nextToken().toLowerCase());
                 context.write(word, one);
             }
         }
@@ -51,7 +51,7 @@ public class WordCountFinal extends Configured implements Tool{
         
         @Override
         public int getPartition(Text key, IntWritable value, int numReduceTasks){
-            String myKey = key.toString().toLowerCase();
+            String myKey = key.toString();
             if(myKey.startsWith("a")){
                 return 0;
             }
