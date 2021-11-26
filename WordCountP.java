@@ -98,10 +98,24 @@ public class WordCountP extends Configured implements Tool{
       return 0;
    }
    
-   public static void main(String ar[]) throws Exception
-   {
-      int res = ToolRunner.run(new Configuration(), new WordCountP(),ar);
-      System.exit(0);
-   }
+    public static void main(String ar[]) throws Exception{
+        Configuration conf = new Configuration();
+        Job job = Job.getInstance(conf, "word count");
+
+        job.setNumReduceTasks(3);
+
+        job.setJarByClass(WordCountP.class);
+        job.setMapperClass(WCMap.class);
+        job.setCombinerClass(WCReduce.class);
+        job.setReducerClass(WCReduce.class);
+        job.setPartitionerClass(WCPart.class);
+
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
 }
 
