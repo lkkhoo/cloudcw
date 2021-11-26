@@ -35,6 +35,27 @@ public class WordCount {
     }
   }
 
+  public static class WCPartitioner implements Partitioner<Text, IntWritable>{
+
+    @Override
+    public int getPartition(Text key, IntWritable value, int numPartitions){
+      String myKey = key.toString().toLowerCase();
+      if (myKey.startsWith("a")){
+        return 0;
+      }
+      if (myKey.startsWith("b")){
+        return 1;
+      }else{
+        return 2;
+      }
+    }
+
+    @Override
+    public void configure(JobConf arg0){
+      
+    }
+  }
+
   public static class WCReducer
        extends Reducer<Text,IntWritable,Text,IntWritable> {
     private IntWritable result = new IntWritable();
@@ -55,11 +76,17 @@ public class WordCount {
   public static void main(String[] args) throws Exception {
     Configuration conf = new Configuration();
     Job job = Job.getInstance(conf, "word count");
+
+    job.setNumReduceTasks(3);
+
     job.setJarByClass(WordCount.class);
     job.setMapperClass(WCMapper.class);
     job.setReducerClass(WCReducer.class);
+    job.setPartitionerClass(WCPartitioner.class);
+
     job.setOutputKeyClass(Text.class);
     job.setOutputValueClass(IntWritable.class);
+
     FileInputFormat.addInputPath(job, new Path(args[0]));
     FileOutputFormat.setOutputPath(job, new Path(args[1]));
     System.exit(job.waitForCompletion(true) ? 0 : 1);
