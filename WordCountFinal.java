@@ -82,6 +82,9 @@ public class WordCountFinal extends Configured implements Tool{
 
         job.setInputFormatClass(CombineTextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
+
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
         
         System.exit(job.waitForCompletion(true)? 0 : 1);
         return 0;
