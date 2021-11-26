@@ -8,7 +8,6 @@ import org.apache.hadoop.fs.*;
 import org.apache.hadoop.mapreduce.lib.input.*;
 import org.apache.hadoop.mapreduce.lib.output.*;
 import org.apache.hadoop.util.*;
-import org.w3c.dom.Text;
 
 public class WordCountFinal extends Configured implements Tool{
 
