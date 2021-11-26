@@ -23,8 +23,8 @@ public class WordCountFinal extends Configured implements Tool{
             String line = value.toString();
             StringTokenizer itr = new StringTokenizer(line.replaceAll("\\p{Punct}", ""));
 
-            while (itr.hasMoreTokens()) {
-                word.set(itr.nextToken().toLowerCase());
+            while (itr.hasMoreTokens().toLowerCase()) {
+                word.set(itr.nextToken());
                 context.write(word, one);
             }
         }
